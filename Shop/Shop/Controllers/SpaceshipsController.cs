@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Core.ServiceInterface;
 using Shop.Data;
 using Shop.Models.Spaceships;
 
@@ -7,13 +8,16 @@ namespace Shop.Controllers
     public class SpaceshipsController : Controller
     {
         public readonly ShopContext _context;
+        private readonly ISpaceshipServices _spaceshipServices;
 
         public SpaceshipsController
             (
-            ShopContext context
+            ShopContext context,
+            ISpaceshipServices spaceshipsServices
             ) 
         {
             _context = context; 
+            _spaceshipServices = spaceshipsServices;
         }
 
         public IActionResult Index()
@@ -29,6 +33,30 @@ namespace Shop.Controllers
                 });
 
             return View(result);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var spaceship = await _spaceshipServices.DetailAsync(id);
+
+            if (spaceship == null)
+            { 
+                return View("Error");
+            }
+
+            var vm = new SpaceshipDetailsViewModel();
+
+            vm.Id = spaceship.Id;
+            vm.Name = spaceship.Name;
+            vm.Typename = spaceship.Typename;
+            vm.BuiltDate = spaceship.BuiltDate;
+            vm.Crew = spaceship.Crew;
+            vm.EnginePower = spaceship.EnginePower;
+            vm.CreatedAt = spaceship.CreatedAt;
+            vm.ModifiedAt = spaceship.ModifiedAt;
+
+            return View(vm);
         }
     }
 }
