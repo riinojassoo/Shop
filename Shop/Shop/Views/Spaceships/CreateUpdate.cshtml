@@ -76,10 +76,12 @@ else
         @if (Model.Id.HasValue)
         {
             <input asp-action="update" asp-controller="spaceships" type="submit" class="btn btn-primary" value="Update" />
+            <a asp-action="Index" asp-controller="spaceships" class="btn btn-success">Back</a>
         }
         else
         {
             <input asp-action="create" asp-controller="spaceships" type="submit" class="btn btn-primary" value="Create" />
+            <a asp-action="Index" asp-controller="spaceships" class="btn btn-success">Back</a>
         }
 
     </form>

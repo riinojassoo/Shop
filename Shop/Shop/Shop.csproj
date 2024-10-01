@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -17,6 +17,10 @@
   <ItemGroup>
 	<ProjectReference Include="..\Shop.ApplicationServices\Shop.ApplicationServices.csproj" />
     <ProjectReference Include="..\Shop.Data\Shop.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="multipleFileUpload\" />
   </ItemGroup>
 
 </Project>
