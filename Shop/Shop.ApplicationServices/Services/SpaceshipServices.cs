@@ -64,6 +64,7 @@ namespace Shop.ApplicationServices.Services
 			domain.EnginePower = dto.EnginePower;
 			domain.CreatedAt = dto.CreatedAt;
 			domain.ModifiedAt = DateTime.Now;
+			_fileServices.FilesToApi(dto, domain);
 
 			_context.Spaceships.Update(domain);
 			await _context.SaveChangesAsync();
@@ -76,10 +77,12 @@ namespace Shop.ApplicationServices.Services
             var spaceship = await _context.Spaceships
                 .FirstOrDefaultAsync(x => x.Id == id);
 
+
             _context.Spaceships.Remove(spaceship);
             await _context.SaveChangesAsync();
+			
 
-            return spaceship;
+			return spaceship;
         }
     }
 }
