@@ -19,6 +19,8 @@ namespace Shop
 
 			builder.Services.AddScoped<IFileServices, FileServices>();
 
+			builder.Services.AddScoped<IKindergartenServices, KindergartenServices>();
+
 			builder.Services.AddDbContext<ShopContext>(options =>
 				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
