@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.ApplicationServices.Services;
 using Shop.Core.Dto;
 using Shop.Core.ServiceInterface;
 using Shop.Data;
 using Shop.Models.Kindergartens;
-using Shop.Models.Spaceships;
 
 namespace Shop.Controllers
 {
