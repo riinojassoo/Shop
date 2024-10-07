@@ -5,12 +5,12 @@ using Shop.Models.RealEstates;
 
 namespace Shop.Controllers
 {
-	public class RealEstateController : Controller
+	public class RealEstatesController : Controller
 	{
 		public readonly ShopContext _context;
 		private readonly IRealEstateServices _realEstateServices;
 
-		public RealEstateController
+		public RealEstatesController
 			(
 			ShopContext context,
 			IRealEstateServices realEstateServices
