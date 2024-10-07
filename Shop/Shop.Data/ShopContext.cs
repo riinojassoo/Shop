@@ -11,8 +11,12 @@ namespace Shop.Data
 
         public DbSet<Spaceship> Spaceships { get; set; }
         public DbSet<FileToApi> FileToApis { get; set; }
+<<<<<<< HEAD
         public DbSet<RealEstate> RealEstates { get; set; }
 
+=======
+        public DbSet<Kindergarten> Kindergartens { get; set; }
+>>>>>>> KinderGarten
 
     }
 }
