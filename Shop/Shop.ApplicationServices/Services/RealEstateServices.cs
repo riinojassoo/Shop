@@ -9,7 +9,7 @@ namespace Shop.ApplicationServices.Services
 	public class RealEstateServices : IRealEstateServices
 	{
 		private readonly ShopContext _context;
-		
+
 		public RealEstateServices
 			(
 				ShopContext context
@@ -60,6 +60,15 @@ namespace Shop.ApplicationServices.Services
 			await _context.SaveChangesAsync();
 
 			return domain;
+		}
+
+		public async Task<RealEstate> Delete(Guid id)
+		{
+			var realEstate = await _context.RealEstates
+				.FirstOrDefaultAsync(x => x.Id == id);
+			_context.RealEstates.Remove(realEstate);
+			await _context.SaveChangesAsync();
+			return realEstate;
 		}
 	}
 }
