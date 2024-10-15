@@ -11,15 +11,18 @@ namespace Shop.Controllers
     {
         public readonly ShopContext _context;
         private readonly ISpaceshipServices _spaceshipServices;
+        private readonly IFileServices _fileServices;
 
         public SpaceshipsController
             (
             ShopContext context,
-            ISpaceshipServices spaceshipsServices
+            ISpaceshipServices spaceshipsServices,
+            IFileServices fileServices
             ) 
         {
             _context = context; 
             _spaceshipServices = spaceshipsServices;
+            _fileServices = fileServices;
         }
 
         public IActionResult Index()
@@ -222,6 +225,23 @@ namespace Shop.Controllers
             var spaceship = await _spaceshipServices.Delete(id);
 
             if (spaceship == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> RemoveImage(ImageViewModel vm)
+        {
+            var dto = new FileToApiDto()
+            {
+                Id = vm.ImageId
+            };
+
+            var image = await _fileServices.RemoveImageFromApi(dto);
+
+            if (image == null)
             {
                 return RedirectToAction(nameof(Index));
             }

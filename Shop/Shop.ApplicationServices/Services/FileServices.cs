@@ -78,7 +78,29 @@ namespace Shop.ApplicationServices.Services
             return null;
         }
 
-        public void UploadFilesToDatabase(RealEstateDto dto, RealEstate domain)
+		public async Task<FileToApi> RemoveImageFromApi(FileToApiDto dto)
+		{
+
+			
+				var imageId = await _context.FileToApis
+					.FirstOrDefaultAsync(x => x.Id == dto.Id);
+
+				var filePath = _webHost.ContentRootPath + "\\multipleFileUpload\\"
+					+ imageId.ExistingFilePath;
+
+				if (File.Exists(filePath))
+				{
+					File.Delete(filePath);
+				}
+
+				_context.FileToApis.Remove(imageId);
+				await _context.SaveChangesAsync();
+			
+
+			return null;
+		}
+
+		public void UploadFilesToDatabase(RealEstateDto dto, RealEstate domain)
         {
             if (dto.Files != null && dto.Files.Count > 0)
             {
