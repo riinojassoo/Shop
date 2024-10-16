@@ -9,18 +9,21 @@ namespace Shop.ApplicationServices.Services
     public class KindergartenServices : IKindergartenServices
     {
 		private readonly ShopContext _context;
+		private readonly IFileServices _fileServices;
 
 		public KindergartenServices
 			(
-				ShopContext context
+				ShopContext context,
+				IFileServices fileServices
 			)
 		{
 			_context = context;
+			_fileServices = fileServices;
 		}
 
 		public async Task<Kindergarten> Create(KindergartenDto dto)
 		{
-			Kindergarten kindergarten = new Kindergarten();
+			Kindergarten kindergarten = new();
 
 			kindergarten.Id = Guid.NewGuid();
 			kindergarten.GroupName = dto.GroupName;
@@ -29,6 +32,11 @@ namespace Shop.ApplicationServices.Services
 			kindergarten.Teacher = dto.Teacher;
 			kindergarten.CreatedAt = DateTime.Now;
 			kindergarten.UpdatedAt = DateTime.Now;
+
+			if (dto.Files != null)
+			{
+				_fileServices.UploadFilesToKindergartenDatabase(dto, kindergarten);
+			}
 
 			await _context.Kindergartens.AddAsync(kindergarten);
 			await _context.SaveChangesAsync();

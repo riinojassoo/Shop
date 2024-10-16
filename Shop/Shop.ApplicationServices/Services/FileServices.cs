@@ -150,5 +150,29 @@ namespace Shop.ApplicationServices.Services
 
 			return null;
 		}
+
+        public void UploadFilesToKindergartenDatabase(KindergartenDto dto, Kindergarten domain)
+        {
+            if (dto.Files != null && dto.Files.Count > 0)
+            {
+                foreach (var image in dto.Files)
+                {
+                    using (var target = new MemoryStream())
+                    {
+                        FileToKindergartenDatabase files = new FileToKindergartenDatabase()
+                        {
+                            Id = Guid.NewGuid(),
+                            ImageTitle = image.FileName,
+                            KindergartenId = domain.Id
+                        };
+
+                        image.CopyTo(target);
+                        files.ImageData = target.ToArray();
+
+                        _context.FileToKindergartenDatabases.Add(files);
+                    }
+                }
+            }
+        }
 	}
 }

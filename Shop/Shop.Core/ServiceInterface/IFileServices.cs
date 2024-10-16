@@ -11,7 +11,7 @@ namespace Shop.Core.ServiceInterface
         Task<FileToDatabase> RemoveImageFromDatabase(FileToDatabaseDto dto);
         Task<FileToDatabase> RemoveImagesFromDatabase(FileToDatabaseDto[] dtos);
         Task<FileToApi> RemoveImageFromApi(FileToApiDto dto);
-
+        void UploadFilesToKindergartenDatabase(KindergartenDto dto, Kindergarten domain);
 
     }
 }
