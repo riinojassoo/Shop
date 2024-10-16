@@ -67,7 +67,12 @@ namespace Shop.ApplicationServices.Services
 			domain.CreatedAt = dto.CreatedAt;
 			domain.UpdatedAt = DateTime.Now;
 
-			_context.Kindergartens.Update(domain);
+            if (dto.Files != null)
+            {
+                _fileServices.UploadFilesToKindergartenDatabase(dto, domain);
+            }
+
+            _context.Kindergartens.Update(domain);
 			await _context.SaveChangesAsync();
 
 			return domain;
