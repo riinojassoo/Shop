@@ -159,7 +159,19 @@ namespace Shop.Controllers
 				return NotFound();
 			}
 
-			var vm = new KindergartenDeleteViewModel();
+            var photos = await _context.FileToKindergartenDatabases
+			   .Where(x => x.KindergartenId == id)
+			   .Select(y => new KindergartenImageViewModel
+			   {
+				   KindergartenId = y.Id,
+				   ImageId = y.Id,
+				   ImageData = y.ImageData,
+				   ImageTitle = y.ImageTitle,
+				   Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
+			   }).ToArrayAsync();
+
+
+            var vm = new KindergartenDeleteViewModel();
 
 			vm.Id = kindergarten.Id;
 			vm.GroupName = kindergarten.GroupName;
@@ -168,6 +180,7 @@ namespace Shop.Controllers
 			vm.Teacher = kindergarten.Teacher;
 			vm.CreatedAt = kindergarten.CreatedAt;
 			vm.UpdatedAt = kindergarten.UpdatedAt;
+			vm.Image.AddRange(photos);
 
 			return View(vm);
 		}
@@ -178,6 +191,24 @@ namespace Shop.Controllers
 			var kindergarten = await _kindergartenServices.Delete(id);
 
 			if (kindergarten == null)
+			{
+				return RedirectToAction(nameof(Index));
+			}
+
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> RemoveImage(KindergartenImageViewModel vm)
+		{
+			var dto = new FileToKindergartenDatabaseDto()
+			{
+				Id = vm.ImageId
+			};
+
+			var image = await _fileServices.RemoveImageFromKindergartenDatabase(dto);
+
+			if (image == null)
 			{
 				return RedirectToAction(nameof(Index));
 			}

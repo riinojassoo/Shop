@@ -174,5 +174,32 @@ namespace Shop.ApplicationServices.Services
                 }
             }
         }
+
+        public async Task<FileToKindergartenDatabase> RemoveImageFromKindergartenDatabase(FileToKindergartenDatabaseDto dto)
+        {
+            var image = await _context.FileToKindergartenDatabases
+                .Where(x => x.Id == dto.Id)
+                .FirstOrDefaultAsync();
+
+            _context.FileToKindergartenDatabases.Remove(image);
+            await _context.SaveChangesAsync();
+
+            return image;
+        }
+
+        public async Task<FileToKindergartenDatabase> RemoveAllImagesFromKindergartenDatabase(FileToKindergartenDatabaseDto[] dtos)
+        {
+            foreach (var dto in dtos)
+            {
+                var image = await _context.FileToKindergartenDatabases
+                    .Where(x => x.Id == dto.Id)
+                    .FirstOrDefaultAsync();
+
+                _context.FileToKindergartenDatabases.Remove(image);
+                await _context.SaveChangesAsync();
+            }
+
+            return null;
+        }
 	}
 }

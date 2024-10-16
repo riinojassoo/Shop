@@ -83,7 +83,18 @@ namespace Shop.ApplicationServices.Services
 			var kindergarten = await _context.Kindergartens
 				.FirstOrDefaultAsync(x => x.Id == id);
 
-			_context.Kindergartens.Remove(kindergarten);
+            var images = await _context.FileToKindergartenDatabases
+                .Where(x => x.KindergartenId == id)
+                .Select(y => new FileToKindergartenDatabaseDto
+                {
+                    Id = y.Id,
+                    ImageTitle = y.ImageTitle,
+                    KindergartenId = y.KindergartenId
+                }).ToArrayAsync();
+
+            await _fileServices.RemoveAllImagesFromKindergartenDatabase(images);
+
+            _context.Kindergartens.Remove(kindergarten);
 			await _context.SaveChangesAsync();
 
 			return kindergarten;
