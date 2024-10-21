@@ -4,7 +4,6 @@ using Shop.Core.Dto;
 using Shop.Core.ServiceInterface;
 using Shop.Data;
 using Shop.Models.Kindergartens;
-using Shop.Models.RealEstates;
 
 namespace Shop.Controllers
 {
