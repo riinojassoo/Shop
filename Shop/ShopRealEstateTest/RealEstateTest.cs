@@ -1,6 +1,7 @@
 using Shop.Core.Dto;
 using Shop.Core.ServiceInterface;
 
+
 namespace ShopRealEstateTest
 {
     public class RealEstateTest : TestBase
@@ -23,6 +24,20 @@ namespace ShopRealEstateTest
 
             //Assert
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async Task ShouldNot_GetByIdRealEstate_WhenReturnsNotEqual()
+        {
+            //Arrange
+            RealEstateDto dto = new();
+
+
+            //Act
+
+
+            //Assert
+
         }
     }
 }
