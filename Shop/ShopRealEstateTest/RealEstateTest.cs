@@ -51,5 +51,54 @@ namespace ShopRealEstateTest
 
             Assert.Equal(databaseGuid, guid);
 		}
+
+        [Fact]
+        public async Task should_DeleteByIdRealEstate_WhenDeleteRealEstate()
+        {
+            //Arrange
+            RealEstateDto realEstate = MockRealEstateData();
+
+			//mängult sisestan andmed, seejärel kustutan ära
+			var addRealEstate = await Svc<IRealEstateServices>().Create(realEstate);
+
+			//Act
+			var result = await Svc<IRealEstateServices>().Delete((Guid)addRealEstate.Id);
+
+            //Assert
+            Assert.Equal(result, addRealEstate);
+		}
+
+        [Fact]
+        public async Task shouldNot_DeleteByIdRealEstate_WhenDidNotDeleteRealEstate()
+        {
+            //Arrange
+            RealEstateDto realEstate = MockRealEstateData();
+
+            var realEstate1 = await Svc<IRealEstateServices>().Create(realEstate);
+            var realEstate2 = await Svc<IRealEstateServices>().Create(realEstate);
+
+			//Act
+			var result = await Svc<IRealEstateServices>().Delete((Guid)realEstate2.Id);
+
+            //Assert
+            Assert.NotEqual(result.Id, realEstate1.Id);
+
+		}
+
+
+		private RealEstateDto MockRealEstateData()
+        {
+            RealEstateDto realEstate = new()
+            {
+                Size = 100,
+                Location = "asd",
+                RoomNumber = 1,
+                BuildingType = "asd",
+                CreatedAt = DateTime.Now,
+                ModifiedAt = DateTime.Now,
+            };
+
+            return realEstate;
+        }
     }
 }
