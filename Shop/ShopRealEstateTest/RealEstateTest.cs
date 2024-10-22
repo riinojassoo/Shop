@@ -1,5 +1,6 @@
 using Shop.Core.Dto;
 using Shop.Core.ServiceInterface;
+using System;
 
 
 namespace ShopRealEstateTest
@@ -85,6 +86,82 @@ namespace ShopRealEstateTest
 
 		}
 
+        [Fact]
+        public async Task Should_UpdateRealEstate_WhenUpdateData()
+        {
+            var guid = new Guid("89c057b7-918c-4296-992a-0938a16e3d1d");
+
+            RealEstateDto dto = MockRealEstateData();
+
+            RealEstateDto domain = new();
+
+            domain.Id = Guid.Parse("89c057b7-918c-4296-992a-0938a16e3d1d");
+            domain.Size = 99;
+            domain.Location = "qwe";
+            domain.RoomNumber = 456;
+            domain.BuildingType = "qwe";
+            domain.CreatedAt = DateTime.UtcNow;
+            domain.ModifiedAt = DateTime.UtcNow;
+
+            await Svc<IRealEstateServices>().Update(dto);
+
+            Assert.Equal(guid, domain.Id);
+            Assert.DoesNotMatch(dto.Location, domain.Location);
+            Assert.DoesNotMatch(dto.RoomNumber.ToString(), domain.RoomNumber.ToString());
+            Assert.NotEqual(dto.Size, domain.Size);
+        }
+
+        [Fact]
+        public async Task Should_UpdateRealEstate_WhenUpdateDataVersion2()
+        {
+			//kasutame kahte mock andmebaasi
+			//ja ss võrdleme neid omavahel
+			RealEstateDto dto = MockRealEstateData();
+            var createRealEstate = await Svc<IRealEstateServices>().Create(dto);
+            //RealEstateDto domain = MockRealEstateData2();
+
+			//await Svc<IRealEstateServices>().Update(dto);
+
+			//Assert.Equal(dto.Id, domain.Id);
+			//Assert.DoesNotMatch(dto.Location, domain.Location);
+			//Assert.DoesNotMatch(dto.RoomNumber.ToString(), domain.RoomNumber.ToString());
+			//Assert.NotEqual(dto.Size, domain.Size);
+
+            RealEstateDto update = MockRealEstateData2();
+            var result = await Svc<IRealEstateServices>().Update(update);
+
+            Assert.DoesNotMatch(result.Location, createRealEstate.Location);
+            Assert.NotEqual(result.ModifiedAt, createRealEstate.ModifiedAt);
+
+		}
+
+        [Fact]
+        public async Task ShouldNot_UpdateRealEstate_WhenDidNotUpdateData()
+        {
+            RealEstateDto dto = MockRealEstateData();
+            var createdRealEstate = await Svc<IRealEstateServices>().Create(dto);//vajutab save
+
+            RealEstateDto nullUpdate = MockNullRealEstateData();
+            var result = await Svc<IRealEstateServices>().Update(nullUpdate);//uued andmed mis peale tulevaf
+
+            Assert.NotEqual(createdRealEstate.Id, result.Id);
+		}
+
+        [Fact]
+        public async Task ShouldNot_UploadRealEstate_xslxFiles()
+        {
+			RealEstateDto dto = MockRealEstateData();
+
+			// Create a mock .xlsx file (as a MemoryStream or file object)
+			var xlsxFile = new MemoryStream();
+			var writer = new StreamWriter(xlsxFile);
+			writer.Write("Mock xlsx content");
+			writer.Flush();
+			xlsxFile.Position = 0; // Reset the stream position
+
+			
+		}
+
 
 		private RealEstateDto MockRealEstateData()
         {
@@ -100,5 +177,36 @@ namespace ShopRealEstateTest
 
             return realEstate;
         }
-    }
+
+		private RealEstateDto MockRealEstateData2()
+		{
+			RealEstateDto realEstate = new()
+			{
+				Size = 99,
+				Location = "qwe",
+				RoomNumber = 2,
+				BuildingType = "qwe",
+				CreatedAt = DateTime.Now.AddYears(1),
+				ModifiedAt = DateTime.Now.AddYears(1),
+			};
+
+			return realEstate;
+		}
+
+		private RealEstateDto MockNullRealEstateData()
+		{
+			RealEstateDto realEstate = new()
+			{
+                Id = null,
+				Size = 99,
+				Location = "qwe",
+				RoomNumber = 2,
+				BuildingType = "qwe",
+				CreatedAt = DateTime.Now.AddYears(-1),
+				ModifiedAt = DateTime.Now.AddYears(-1),
+			};
+
+			return realEstate;
+		}
+	}
 }
