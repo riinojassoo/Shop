@@ -151,6 +151,7 @@ namespace ShopRealEstateTest
         public async Task ShouldNot_UploadRealEstate_xslxFiles()
         {
 			RealEstateDto dto = MockRealEstateData();
+			var createdRealEstate = await Svc<IRealEstateServices>().Create(dto);//loob uue
 
 			// Create a mock .xlsx file (as a MemoryStream or file object)
 			var xlsxFile = new MemoryStream();
@@ -159,7 +160,15 @@ namespace ShopRealEstateTest
 			writer.Flush();
 			xlsxFile.Position = 0; // Reset the stream position
 
-			
+			// Act: Try to update with an .xlsx file, expecting it to fail
+			RealEstateDto updateDto = MockRealEstateData(); // Simulate the same or some update details
+			var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+			{
+				await Svc<IRealEstateServices>().Update(createdRealEstate); // Passing .xlsx file during the update
+			});
+
+			// Assert: Check that an exception is thrown and ensure the message indicates the file type is not allowed
+			Assert.Equal("File type not supported", exception.Message);
 		}
 
 
