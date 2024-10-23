@@ -20,5 +20,25 @@ namespace Shop.KindergartenTest
 			Assert.NotEqual(wrongGuid, guid);
 
 		}
+
+		[Fact]
+		public async Task Should_AddNegativeChildrenCountKindergarten_WhenCreated()
+		{
+			//Arrange
+			KindergartenDto dto = new();
+
+			dto.GroupName = "Mesimummud";
+			dto.ChildrenCount = -1;
+			dto.KindergartenName = "LapsedLapsed";
+			dto.Teacher = "Tiiu Tamm";
+			dto.CreatedAt = DateTime.Now;
+			dto.UpdatedAt = DateTime.Now;
+
+			//Act
+			var result = await Svc<IKindergartenServices>().Create(dto);
+
+			//Assert
+			Assert.Equal(result.ChildrenCount, dto.ChildrenCount);
+		}
 	}
 }
