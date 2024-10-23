@@ -40,5 +40,34 @@ namespace Shop.KindergartenTest
 			//Assert
 			Assert.Equal(result.ChildrenCount, dto.ChildrenCount);
 		}
+
+		[Fact]
+		public async Task Should_AllowOnlySymbolsAsTecherKindergarten_WhenUpdated()
+		{
+			//Arrange
+			KindergartenDto dto = MockKindergartenData();
+
+			//Act
+			var result = await Svc<IKindergartenServices>().Update(dto);
+
+			//Assert
+			Assert.Equal(result.Teacher, dto.Teacher);
+
+		}
+
+		private KindergartenDto MockKindergartenData()
+		{
+			KindergartenDto kindergarten = new()
+			{
+				GroupName = "Rohutirtsud",
+				ChildrenCount = 3,
+				KindergartenName = "LapsedLapsedLapsed",
+				Teacher = "!@#$%",
+				CreatedAt = DateTime.Now,
+				UpdatedAt = DateTime.Now
+			};
+
+			return kindergarten;
+		}
 	}
 }
