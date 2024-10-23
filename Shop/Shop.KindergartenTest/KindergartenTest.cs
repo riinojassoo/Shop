@@ -41,6 +41,7 @@ namespace Shop.KindergartenTest
 			Assert.Equal(result.ChildrenCount, dto.ChildrenCount);
 		}
 
+
 		[Fact]
 		public async Task Should_AllowOnlySymbolsAsTecherKindergarten_WhenUpdated()
 		{
@@ -52,7 +53,23 @@ namespace Shop.KindergartenTest
 
 			//Assert
 			Assert.Equal(result.Teacher, dto.Teacher);
+		}
 
+		[Fact]
+		public async Task ShouldNot_UpdateKindergarten_WhenDeletedKindergarten()
+		{
+			//Arrange
+			KindergartenDto kindergarten = MockKindergartenData(); //loomise andmed
+			KindergartenDto kindergartenUpdate = MockKindergartenData2(); //updatemise andmed
+
+			var createdKindergarten = await Svc<IKindergartenServices>().Create(kindergarten); //loon uue kindergarteni
+
+			//Act
+			var deletedKindergarten = await Svc<IKindergartenServices>().Delete((Guid)createdKindergarten.Id); //kustutan loodud kindergarteni
+			var updateKindergarten = await Svc<IKindergartenServices>().Update(kindergartenUpdate); //update-in loodud kindergartenit
+			
+			//Assert
+			Assert.NotEqual(deletedKindergarten.Id, kindergartenUpdate.Id); //eeldan et kustutatu ja uuendatu id ei saa olla sama
 		}
 
 		private KindergartenDto MockKindergartenData()
@@ -63,6 +80,21 @@ namespace Shop.KindergartenTest
 				ChildrenCount = 3,
 				KindergartenName = "LapsedLapsedLapsed",
 				Teacher = "!@#$%",
+				CreatedAt = DateTime.Now,
+				UpdatedAt = DateTime.Now
+			};
+
+			return kindergarten;
+		}
+
+		private KindergartenDto MockKindergartenData2()
+		{
+			KindergartenDto kindergarten = new()
+			{
+				GroupName = "Rohutirtsud",
+				ChildrenCount = 3,
+				KindergartenName = "LapsedLapsedLapsed",
+				Teacher = "Tiina Tamm",
 				CreatedAt = DateTime.Now,
 				UpdatedAt = DateTime.Now
 			};
