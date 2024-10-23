@@ -34,7 +34,7 @@ namespace Shop.KindergartenTest
 
 		public virtual void SetupServices(IServiceCollection services)
 		{
-			services.AddScoped<IRealEstateServices, RealEstateServices>();
+			services.AddScoped<IKindergartenServices, KindergartenServices>();
 			services.AddScoped<IFileServices, FileServices>();
 			services.AddScoped<IHostEnvironment, MockIHostEnvironment>();
 
