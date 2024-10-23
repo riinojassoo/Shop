@@ -72,6 +72,27 @@ namespace Shop.KindergartenTest
 			Assert.NotEqual(deletedKindergarten.Id, kindergartenUpdate.Id); //eeldan et kustutatu ja uuendatu id ei saa olla sama
 		}
 
+		[Fact]
+		public async Task Should_AllowOver250CharacterAsGroupName_WhenCreated()
+		{
+			//Arrange
+			KindergartenDto dto = new();
+
+			dto.GroupName = new string('a', 251);
+			dto.ChildrenCount = 100;
+			dto.KindergartenName = "LapsedLapsed";
+			dto.Teacher = "Tiiu Tamm";
+			dto.CreatedAt = DateTime.Now;
+			dto.UpdatedAt = DateTime.Now;
+
+			//Act
+			var result = await Svc<IKindergartenServices>().Create(dto);
+
+			//Assert
+			Assert.NotNull(result);
+			Assert.Equal(251, result.GroupName.Length); //igaks juhuks et kontrollida kas ikka tuli 251 tähte
+		}
+
 		private KindergartenDto MockKindergartenData()
 		{
 			KindergartenDto kindergarten = new()
