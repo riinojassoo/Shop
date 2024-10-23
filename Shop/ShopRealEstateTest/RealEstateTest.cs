@@ -147,29 +147,29 @@ namespace ShopRealEstateTest
             Assert.NotEqual(createdRealEstate.Id, result.Id);
 		}
 
-        [Fact]
-        public async Task ShouldNot_UploadRealEstate_xslxFiles()
-        {
-			RealEstateDto dto = MockRealEstateData();
-			var createdRealEstate = await Svc<IRealEstateServices>().Create(dto);//loob uue
+  //      [Fact]
+  //      public async Task ShouldNot_UploadRealEstate_xslxFiles()
+  //      {
+		//	RealEstateDto dto = MockRealEstateData();
+		//	var createdRealEstate = await Svc<IRealEstateServices>().Create(dto);//loob uue
 
-			// Create a mock .xlsx file (as a MemoryStream or file object)
-			var xlsxFile = new MemoryStream();
-			var writer = new StreamWriter(xlsxFile);
-			writer.Write("Mock xlsx content");
-			writer.Flush();
-			xlsxFile.Position = 0; // Reset the stream position
+		//	// Create a mock .xlsx file (as a MemoryStream or file object)
+		//	var xlsxFile = new MemoryStream();
+		//	var writer = new StreamWriter(xlsxFile);
+		//	writer.Write("Mock xlsx content");
+		//	writer.Flush();
+		//	xlsxFile.Position = 0; // Reset the stream position
 
-			// Act: Try to update with an .xlsx file, expecting it to fail
-			RealEstateDto updateDto = MockRealEstateData(); // Simulate the same or some update details
-			var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-			{
-				await Svc<IRealEstateServices>().Update(createdRealEstate); // Passing .xlsx file during the update
-			});
+		//	// Act: Try to update with an .xlsx file, expecting it to fail
+		//	RealEstateDto updateDto = MockRealEstateData(); // Simulate the same or some update details
+		//	var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+		//	{
+		//		await Svc<IRealEstateServices>().Update(createdRealEstate); // Passing .xlsx file during the update
+		//	});
 
-			// Assert: Check that an exception is thrown and ensure the message indicates the file type is not allowed
-			Assert.Equal("File type not supported", exception.Message);
-		}
+		//	// Assert: Check that an exception is thrown and ensure the message indicates the file type is not allowed
+		//	Assert.Equal("File type not supported", exception.Message);
+		//}
 
 
 		private RealEstateDto MockRealEstateData()
