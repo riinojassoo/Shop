@@ -45,11 +45,38 @@
         </nav>
     </header>
 
-    <!-- Image element - set the background image for the header in the line below-->
-    <div class="py-5 bg-image-full" style="background-image: url('Images/breaking-waves.jpg')">
-        <!-- Put anything you want here! The spacer below with inline CSS is just for demo purposes!-->
-        <div style="height: 30rem"></div>
+    <div class="banner">
+        @{
+            string bannerImage = "";
+            string bannerHeight = "18rem";
+            var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+            switch (controller)
+            {
+                case "Home":
+                    bannerImage = "~/images/breaking-waves.jpg";
+                    bannerHeight = "35rem";
+                    break;
+                case "Spaceships":
+                    bannerImage = "~/images/spaceship.jpg";
+                    break;
+                case "RealEstates":
+                    bannerImage = "~/images/realestate.jpg";
+                    break;
+                case "Kindergartens":
+                    bannerImage = "~/images/kindergarten.jpg";
+                    break;
+                default:
+                    bannerImage = "~/images/defaultBanner.jpg";
+                    break;
+            }
+        }
+
+        <img src="@Url.Content(bannerImage)" 
+             alt="Banner" 
+             class="img-fluid" 
+             style="width: 100%; height: @bannerHeight; object-fit: cover;" />
     </div>
+
 
     <div class="container">
         <main role="main" class="pb-3">
