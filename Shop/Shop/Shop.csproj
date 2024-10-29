@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="multipleFileUpload\" />
-    <Folder Include="Views\Shared\Images\" />
   </ItemGroup>
 
 </Project>
