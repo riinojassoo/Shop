@@ -4,43 +4,46 @@
 	int rowNumber = 1;
 }
 
-<div class="h1">
+<div class="m-0 text-center h1">
 	RealEstates
 </div>
+<br/>
 
-<form method="post">
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th scope="col">Nr</th>
-				<th scope="col">Size</th>
-				<th scope="col">Location</th>
-				<th scope="col">Room Number</th>
-				<th scope="col">Building Type</th>
-				<th scope="col"></th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var realEstates in Model)
-			{
+<div class="d-flex justify-content-center">
+	<form method="post">
+		<table class="table table-striped table-hover">
+			<thead>
 				<tr>
-					<td>@rowNumber</td>
-					<td>@realEstates.Size</td>
-					<td>@realEstates.Location</td>
-					<td>@realEstates.RoomNumber</td>
-					<td>@realEstates.BuildingType</td>
-					<td>
-						<a asp-action="details" asp-controller="realEstates" asp-route-id="@realEstates.Id" class="btn btn-outline-dark">Details</a>
-						<a asp-action="update" asp-controller="realEstates" asp-route-id="@realEstates.Id" class="btn btn-outline-dark">Update</a>
-						<a asp-action="delete" asp-controller="realEstates" asp-route-id="@realEstates.Id" class="btn btn-outline-danger">Delete</a>
-					</td>
+					<th scope="col">Nr</th>
+					<th scope="col">Size</th>
+					<th scope="col">Location</th>
+					<th scope="col">Room Number</th>
+					<th scope="col">Building Type</th>
+					<th scope="col"></th>
 				</tr>
+			</thead>
+			<tbody>
+				@foreach (var realEstates in Model)
+				{
+					<tr>
+						<td>@rowNumber</td>
+						<td>@realEstates.Size</td>
+						<td>@realEstates.Location</td>
+						<td>@realEstates.RoomNumber</td>
+						<td>@realEstates.BuildingType</td>
+						<td>
+							<a asp-action="details" asp-controller="realEstates" asp-route-id="@realEstates.Id" class="btn btn-outline-dark">Details</a>
+							<a asp-action="update" asp-controller="realEstates" asp-route-id="@realEstates.Id" class="btn btn-outline-dark">Update</a>
+							<a asp-action="delete" asp-controller="realEstates" asp-route-id="@realEstates.Id" class="btn btn-outline-danger">Delete</a>
+						</td>
+					</tr>
 
-				rowNumber += 1;
-			}
-		</tbody>
-	</table>
-</form>
+					rowNumber += 1;
+				}
+			</tbody>
+		</table>
+	</form>
+</div>
 
 <div class="m-0 text-center">
 	<a asp-action="create" asp-asp-controller="Spaceships" type="submit" class="btn btn-dark">Create</a>

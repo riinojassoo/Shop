@@ -6,12 +6,14 @@
 }
 
 
-<div class="h1">
+<div class="m-0 text-center h1">
 	Spaceships
 </div>
+<br/>
 
+<div class="d-flex justify-content-center">
 <form method="post">
-	<table class="table table-hover">
+		<table class="table table-striped table-hover">
 		<thead>
 			<tr>
 				<th scope="col">Nr</th>
@@ -43,6 +45,7 @@
 		</tbody>
 	</table>
 </form>
+</div>
 
 <div class="m-0 text-center">
 	<a asp-action="create" asp-asp-controller="Spaceships" type="submit" class="btn btn-dark">Create</a>
