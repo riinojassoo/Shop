@@ -1,12 +1,10 @@
-﻿@model IEnumerable<Shop.Models.Spaceships.SpaceshipsIndexViewModel>
+﻿<link href="~/css/styles.css" rel="stylesheet" />
+@model IEnumerable<Shop.Models.Spaceships.SpaceshipsIndexViewModel>
 
 @{
 	int rowNumber = 1;
 }
 
-<div>
-	<a asp-action="create" asp-asp-controller="Spaceships" type="submit" class="btn btn-primary">Create</a>
-</div>
 
 <div class="h1">
 	Spaceships
@@ -34,8 +32,8 @@
 					<td>@spaceships.BuiltDate</td>
 					<td>@spaceships.Crew</td>
 					<td>
-						<a asp-action="details" asp-controller="spaceships" asp-route-id="@spaceships.Id" class="btn btn-info">Details</a>
-						<a asp-action="update" asp-controller="spaceships" asp-route-id="@spaceships.Id" class="btn btn-primary">Update</a>
+						<a asp-action="details" asp-controller="spaceships" asp-route-id="@spaceships.Id" class="btn btn-outline-dark">Details</a>
+						<a asp-action="update" asp-controller="spaceships" asp-route-id="@spaceships.Id" class="btn btn-outline-dark">Update</a>
 						<a asp-action="delete" asp-controller="spaceships" asp-route-id="@spaceships.Id" class="btn btn-outline-danger">Delete</a>
 					</td>
 				</tr>
@@ -45,3 +43,7 @@
 		</tbody>
 	</table>
 </form>
+
+<div class="m-0 text-center">
+	<a asp-action="create" asp-asp-controller="Spaceships" type="submit" class="btn btn-dark">Create</a>
+</div>
