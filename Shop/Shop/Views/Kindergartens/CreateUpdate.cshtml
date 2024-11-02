@@ -2,14 +2,14 @@
 
 @if (Model.Id.HasValue)
 {
-    <h1>Update</h1>
+	<h1 class="m-0 text-center">Update</h1>
 }
 else
 {
-    <h1>Create</h1>
+	<h1 class="m-0 text-center">Create</h1>
 }
-
-<div>
+<br />
+<div class="col-11 ps-5">
 	<form method="post" enctype="multipart/form-data">
 		<input asp-for="Id" type="hidden" />
 		<input asp-for="CreatedAt" type="hidden" />
