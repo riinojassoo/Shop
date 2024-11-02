@@ -48,7 +48,7 @@
     <div class="banner">
         @{
             string bannerImage = "";
-            string bannerHeight = "18rem";
+            string bannerHeight = "20rem";
             var controller = ViewContext.RouteData.Values["controller"]?.ToString();
             switch (controller)
             {
@@ -57,13 +57,13 @@
                     bannerHeight = "35rem";
                     break;
                 case "Spaceships":
-                    bannerImage = "~/images/spaceship.jpg";
+                    bannerImage = "~/images/space1.jpg";
                     break;
                 case "RealEstates":
                     bannerImage = "~/images/realestate.jpg";
                     break;
                 case "Kindergartens":
-                    bannerImage = "~/images/kindergarten.jpg";
+                    bannerImage = "~/images/kinder.jpg";
                     break;
                 default:
                     bannerImage = "~/images/defaultBanner.jpg";
