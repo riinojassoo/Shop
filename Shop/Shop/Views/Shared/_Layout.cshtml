@@ -39,6 +39,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="RealEstates" asp-action="Index">RealEstate</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="AccuWeathers" asp-action="Index">AccuWeather</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -64,6 +67,9 @@
                     break;
                 case "Kindergartens":
                     bannerImage = "~/images/kinder.jpg";
+                    break;
+                case "AccuWeathers":
+                    bannerImage = "~/images/breaking-waves.jpg";
                     break;
                 default:
                     bannerImage = "~/images/defaultBanner.jpg";
