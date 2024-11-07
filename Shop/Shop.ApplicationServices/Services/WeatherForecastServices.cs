@@ -44,6 +44,12 @@ namespace Shop.ApplicationServices.Services
 				dto.MobileLink = weatherRootDto.Headline.MobileLink;
 				dto.Link = weatherRootDto.Headline.Link;
 
+				var forecast = weatherRootDto.DailyForecasts[0];
+
+				dto.DailyForecastsDate = forecast.Date.ToString("yyyy-MM-dd");
+				dto.DailyForecastsEpochDate = forecast.EpochDate;
+
+				dto.TempMinValue = forecast.Temperature.Minimum.Value;
             }
 
             return dto;

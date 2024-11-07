@@ -31,7 +31,7 @@ namespace Shop.Controllers
 			{
 				return RedirectToAction("City", "AccuWeathers", new {city = model.CityName});
 			}
-			return View();
+			return View(model);
 		}
 
 		[HttpGet]
