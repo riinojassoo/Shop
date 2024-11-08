@@ -50,6 +50,24 @@ namespace Shop.ApplicationServices.Services
 				dto.DailyForecastsEpochDate = forecast.EpochDate;
 
 				dto.TempMinValue = forecast.Temperature.Minimum.Value;
+				dto.TempMinUnit = forecast.Temperature.Minimum.Unit;
+                dto.TempMinUnitType = forecast.Temperature.Minimum.UnitType;
+
+				dto.TempMaxValue = forecast.Temperature.Maximum.Value;
+				dto.TempMaxUnit = forecast.Temperature.Maximum.Unit;
+				dto.TempMaxUnitType = forecast.Temperature.Maximum.UnitType;
+
+				dto.DayIcon = forecast.Day.Icon;
+				dto.DayIconPhrase = forecast.Day.IconPhrase;
+				dto.DayHasPrecipitation = forecast.Day.HasPrecipitation;
+				dto.DayPrecipitationType = forecast.Day.PrecipitationType;
+				dto.DayPrecipitationIntensity = forecast.Day.PrecipitationIntensity;
+
+				dto.NightIcon = forecast.Night.Icon;
+				dto.NightIconPhrase = forecast.Night.IconPhrase;
+				dto.NightHasPrecipitation = forecast.Night.HasPrecipitation;
+				dto.NightPrecipitationType = forecast.Night.PrecipitationType;
+				dto.NightPrecipitationIntensity = forecast.Night.PrecipitationIntensity;
             }
 
             return dto;
