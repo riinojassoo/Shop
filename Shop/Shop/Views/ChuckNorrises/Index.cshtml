@@ -1,0 +1,18 @@
+﻿@model Shop.Models.ChuckNorrises.ChuckNorrisIndexViewModel
+
+<h1>Chuck Norris Jokes</h1>
+
+<div class="container">
+	<form method="post">
+		<div class="container">
+			<div class="form-group col-md-offset-3 col-md-5">
+				<h2>Chuck Norris joke generator</h2>
+			</div>
+		</div>
+		<div class="container">
+			<div class="form-group col-md-offset-3 col-md-5">
+				<button asp-controller="ChuckNorrises" asp-action="GenerateJoke" class="btn btn-outline-dark">Generate Joke</button>
+			</div>
+		</div>
+	</form>
+</div>
