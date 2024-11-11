@@ -10,9 +10,11 @@
 			</div>
 		</div>
 		<div class="container">
-			<div class="form-group col-md-offset-3 col-md-5">
-				<button asp-controller="ChuckNorrises" asp-action="GenerateJoke" class="btn btn-outline-dark">Generate Joke</button>
-			</div>
+			<form asp-controller="ChuckNorrisJoke" asp-action="GenerateJoke" method="post">
+				<div class="form-group col-md-offset-3 col-md-5">
+					<button type="submit" class="btn btn-outline-dark">Generate Joke</button>
+				</div>
+			</form>
 		</div>
 	</form>
 </div>

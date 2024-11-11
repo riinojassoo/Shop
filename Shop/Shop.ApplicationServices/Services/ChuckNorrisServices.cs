@@ -1,25 +1,28 @@
 ﻿using Nancy.Json;
 using Shop.Core.Dto.ChuckNorrisDtos;
-using Shop.Core.Dto.WeatherDtos.AccuWeatherDtos;
 using Shop.Core.ServiceInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.ApplicationServices.Services
 {
     public class ChuckNorrisServices : IChuckNorrisServices
     {
-		public async Task<ChuckNorrisResultDto> ChuckNorrisResult(ChuckNorrisResultDto dto)
+		public async Task<ChuckNorrisRootDto> ChuckNorrisResult(ChuckNorrisRootDto dto)
 		{
-			string url = "https://api.chucknorris.io/jokes/random";
+			string url = $"https://api.chucknorris.io/jokes/random";
 
 			using (WebClient client = new WebClient())
 			{
 				string json = client.DownloadString(url);
+
+				ChuckNorrisRootDto chuckResult = new JavaScriptSerializer().Deserialize<ChuckNorrisRootDto>(json);
+
+				dto.Id = chuckResult.Id;
+				dto.Categories = chuckResult.Categories;
+				dto.CreatedAt = chuckResult.CreatedAt;
+				dto.IconUrl = chuckResult.IconUrl;
+				dto.UpdatedAt = chuckResult.UpdatedAt;
+				dto.Value = chuckResult.Value;
 			}
 
 			return dto;
