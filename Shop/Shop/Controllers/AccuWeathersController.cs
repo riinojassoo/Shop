@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using Shop.ApplicationServices.Services;
 using Shop.Core.Dto.WeatherDtos.AccuWeatherDtos;
 using Shop.Core.ServiceInterface;
 using Shop.Data;
 using Shop.Models.AccuWeathers;
+using Shop.Models.Kindergartens;
 
 namespace Shop.Controllers
 {
@@ -41,8 +43,21 @@ namespace Shop.Controllers
 			dto.CityName = city;
 
 			_weatherForecastServices.AccuWeatherResult(dto);
+			AccuWeatherViewModel vm = new();
 
-			return View();
+			vm.EffectiveDate = dto.EffectiveDate;
+			vm.EffectiveEpochDate = dto.EffectiveEpochDate;
+			vm.Severity = dto.Severity;
+			vm.Text	= dto.Text;
+			vm.Category = dto.Category;
+			vm.EndDate = dto.EndDate;
+			vm.EndEpochDate = dto.EndEpochDate;
+			vm.TempMinValue = dto.TempMinValue;
+			vm.TempMaxValue = dto.TempMaxValue;
+
+            //mappimine dto ja viewmodeli vahel. Teha ise.
+
+			return View(vm);
 		}
 	}
 }
