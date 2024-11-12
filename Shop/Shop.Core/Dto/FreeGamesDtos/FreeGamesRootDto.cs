@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Shop.Core.Dto.FreeGamesDtos
 {
+	//public class FreeGamesRootDto
+	//{
+	//	public FreeGames[] FreeGamesList { get; set; }
+	//}
 	public class FreeGamesRootDto
 	{
         [JsonPropertyName("id")]

@@ -2,7 +2,7 @@
 {
     public class FreeGamesIndexViewModel
     {
-        public string id { get; set; }
+        public int id { get; set; }
         public string title { get; set; }
         public string genre { get; set; }
         public string platform { get; set; }
