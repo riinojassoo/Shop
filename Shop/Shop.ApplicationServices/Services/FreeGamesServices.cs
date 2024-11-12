@@ -22,19 +22,19 @@ namespace Shop.ApplicationServices.Services
 			{
 				string json = client.DownloadString(url);
 
-				FreeGamesRootDto gamesResult = new JavaScriptSerializer().Deserialize<FreeGamesRootDto>(json);
+				List<FreeGamesRootDto> gamesResult = new JavaScriptSerializer().Deserialize< List<FreeGamesRootDto>>(json);
 
-				dto.id = gamesResult.id;
-				dto.title = gamesResult.title;
-				dto.thumbnail = gamesResult.thumbnail;
-				dto.short_description = gamesResult.short_description;
-				dto.game_url = gamesResult.game_url;
-				dto.genre = gamesResult.genre;
-				dto.platform = gamesResult.platform;
-				dto.publisher = gamesResult.publisher;
-				dto.developer = gamesResult.developer;
-				dto.release_date = gamesResult.release_date;
-				dto.freetogame_profile_url = gamesResult.freetogame_profile_url;
+				dto.id = gamesResult[0].id;
+				dto.title = gamesResult[0].title;
+				dto.thumbnail = gamesResult[0].thumbnail;
+				dto.short_description = gamesResult[0].short_description;
+				dto.game_url = gamesResult[0].game_url;
+				dto.genre = gamesResult[0].genre;
+				dto.platform = gamesResult[0].platform;
+				dto.publisher = gamesResult[0].publisher;
+				dto.developer = gamesResult[0].developer;
+				dto.release_date = gamesResult[0].release_date;
+				dto.freetogame_profile_url = gamesResult[0].freetogame_profile_url;
 			}
 
 			return dto;
