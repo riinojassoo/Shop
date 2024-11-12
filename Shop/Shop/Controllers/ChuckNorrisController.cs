@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Core.Dto.ChuckNorrisDtos;
 using Shop.Core.ServiceInterface;
-using Shop.Models.ChuckNorrises;
+using Shop.Models.ChuckNorris;
 
 namespace Shop.Controllers
 {
@@ -25,11 +25,11 @@ namespace Shop.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult ChuckNorrisJoke()
-		{
+        public async Task<IActionResult> ChuckNorrisJoke()
+        {
 			ChuckNorrisRootDto dto = new ChuckNorrisRootDto();
 
-			_chuckNorrisServices.ChuckNorrisResult(dto);
+			await _chuckNorrisServices.ChuckNorrisResult(dto);
 
 			if (string.IsNullOrEmpty(dto.Value))
 			{
@@ -47,7 +47,7 @@ namespace Shop.Controllers
 				Value = dto.Value,
 			};
 
-			return View(vm);
+			return View("JokeGenerator", vm);
 		}
 	}
 }

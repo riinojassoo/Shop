@@ -22,6 +22,7 @@ namespace Shop.ApplicationServices.Services
 				dto.CreatedAt = chuckResult.CreatedAt;
 				dto.IconUrl = chuckResult.IconUrl;
 				dto.UpdatedAt = chuckResult.UpdatedAt;
+				dto.Url = chuckResult.Url;
 				dto.Value = chuckResult.Value;
 			}
 

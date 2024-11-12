@@ -1,4 +1,4 @@
-﻿namespace Shop.Models.ChuckNorrises
+﻿namespace Shop.Models.ChuckNorris
 {
 	public class ChuckNorrisIndexViewModel
 	{
