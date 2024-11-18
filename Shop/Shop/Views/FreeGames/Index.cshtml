@@ -5,6 +5,26 @@
 </div>
 <br />
 
+<form asp-action="Index" method="get" class="mb-3 text-center">
+	<label for="category">Filter by Category:</label>
+	<select name="category" id="category" class="form-control d-inline w-auto" onchange="this.form.submit()">
+		<option value="">All</option>
+		<option value="mmorpg">MMORPG</option>
+		<option value="shooter">Shooter</option>
+		<option value="moba">MOBA</option>
+		<option value="anime">Anime</option>
+		<option value="battle">Battle Royale</option>
+		<option value="strategy">Strategy</option>
+		<option value="fantasy">Fantasy</option>
+		<option value="sci-fi">Sci-Fi</option>
+		<option value="card">Card Games</option>
+		<option value="racing">Racing</option>
+		<option value="fighting">Fighting</option>
+		<option value="social">Social</option>
+		<option value="sports">Sports</option>
+	</select>
+</form>
+
 <div class="row justify-content-center">
 	<div class="col-10 form-text text-center">
 			<table class="table table-striped table-hover">
@@ -35,8 +55,3 @@
 			</table>
 	</div>
 </div>
-<form asp-controller="FreeGames" asp-action="GenerateList" method="post">
-	<div class="form-group col-md-offset-3 col-md-5">
-		<button type="submit" class="btn btn-outline-dark">Generate List</button>
-	</div>
-</form>

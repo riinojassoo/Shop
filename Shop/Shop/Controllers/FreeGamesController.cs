@@ -13,9 +13,9 @@ namespace Shop.Controllers
         {
             _freeGamesServices = freeGamesServices;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string category = null)
         {
-			var dtoList = await _freeGamesServices.FreeGamesResult();
+			var dtoList = await _freeGamesServices.FreeGamesResult(category);
 
 			if (dtoList == null || !dtoList.Any())
 			{

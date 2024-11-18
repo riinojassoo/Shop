@@ -9,6 +9,6 @@ namespace Shop.Core.ServiceInterface
 {
 	public interface IFreeGamesServices
 	{
-		Task<List<FreeGamesRootDto>> FreeGamesResult();
+		Task<List<FreeGamesRootDto>> FreeGamesResult(string category = null);
 	}
 }
