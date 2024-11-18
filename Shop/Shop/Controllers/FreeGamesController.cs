@@ -13,43 +13,8 @@ namespace Shop.Controllers
         {
             _freeGamesServices = freeGamesServices;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-		[HttpPost]
-		public IActionResult GenerateList()
-		{
-			return RedirectToAction("GenerateGamesList");
-		}
-
-		[HttpGet]
-		public async Task<IActionResult> GenerateGamesList()
-		{
-
-			//FreeGamesRootDto dto = new FreeGamesRootDto();
-
-			//await _freeGamesServices.FreeGamesResult(dto);
-
-			//if (string.IsNullOrEmpty(dto.short_description))
-			//{
-			//	ModelState.AddModelError(string.Empty, "List not found.");
-			//	return View("Error");
-			//}
-			//var vm = new List<FreeGamesIndexViewModel>
-			//{
-			//	new FreeGamesIndexViewModel
-			//	{
-			//		id = dto.id,
-			//		title = dto.title,
-			//		genre = dto.genre,
-			//		platform = dto.platform,
-			//		short_description = dto.short_description,
-			//	}
-			//};
-
-			//return View("Index", vm);
 			var dtoList = await _freeGamesServices.FreeGamesResult();
 
 			if (dtoList == null || !dtoList.Any())
@@ -69,8 +34,8 @@ namespace Shop.Controllers
 			}).ToList();
 
 			// Pass the list of ViewModels to the Index view
-			return View("Index", vmList);
-
-		}
+			return View(vmList);
+            
+        }
 	}
 }
