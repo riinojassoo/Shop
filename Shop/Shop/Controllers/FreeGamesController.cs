@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.ApplicationServices.Services;
-using Shop.Core.Dto.FreeGamesDtos;
 using Shop.Core.ServiceInterface;
 using Shop.Models.FreeGames;
 
@@ -13,9 +11,9 @@ namespace Shop.Controllers
         {
             _freeGamesServices = freeGamesServices;
         }
-        public async Task<IActionResult> Index(string category = null)
+        public async Task<IActionResult> Index()
         {
-			var dtoList = await _freeGamesServices.FreeGamesResult(category);
+			var dtoList = await _freeGamesServices.FreeGamesResult();
 
 			if (dtoList == null || !dtoList.Any())
 			{

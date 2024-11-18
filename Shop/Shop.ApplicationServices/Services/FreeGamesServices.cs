@@ -11,7 +11,7 @@ namespace Shop.ApplicationServices.Services
 	public class FreeGamesServices : IFreeGamesServices
 	{
 
-		public async Task<List<FreeGamesRootDto>> FreeGamesResult(string category = null)
+		public async Task<List<FreeGamesRootDto>> FreeGamesResult()
 		{
 			string url = $"https://www.freetogame.com/api/games";
 				List<FreeGamesRootDto> gamesList = new List<FreeGamesRootDto>();
@@ -27,7 +27,7 @@ namespace Shop.ApplicationServices.Services
 					gamesList.AddRange(gamesResult);
 				}
 
-				return gamesResult ?? new List<FreeGamesRootDto>();
+				return gamesResult;
 			}
 		}
 	}

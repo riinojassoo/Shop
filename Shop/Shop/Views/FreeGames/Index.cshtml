@@ -35,6 +35,7 @@
 						<th scope="col">Genre</th>
 						<th scope="col">Platform</th>
 						<th scope="col">Short Description</th>
+						<th scope="col">Url</th>
 					</tr>
 				</thead>
 				@if (Model != null && Model.Any())
@@ -48,6 +49,11 @@
 							<td>@freeGames.genre</td>
 							<td>@freeGames.platform</td>
 							<td>@freeGames.short_description</td>
+							<td>
+								<a href="@freeGames.game_url" class="btn btn-outline-dark" target="_blank">
+								@(freeGames.platform == "Web Browser" ? "Play Now" : "To Download")
+								</a>
+							</td>
 						</tr>
 					}
 				</tbody>
