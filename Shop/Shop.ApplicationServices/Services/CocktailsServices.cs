@@ -1,17 +1,15 @@
 ﻿using Nancy.Json;
 using Shop.Core.Dto.Cocktails;
-using Shop.Core.Dto.WeatherDtos.AccuWeatherDtos;
 using Shop.Core.ServiceInterface;
-using System.Collections.Generic;
 using System.Net;
 
 namespace Shop.ApplicationServices.Services
 {
     public class CocktailsServices : ICocktailsServices
     {
-        public async Task<List<CocktailsDto>> CocktailsResult()
+        public async Task<List<CocktailsDto>> CocktailsResult(CocktailsDto dto)
         {
-            string url = $"www.thecocktaildb.com/api/json/v1/1/search.php?s={dto.strDrink}";
+            string url = $"www.thecocktaildb.com/api/json/v1/1/search.php?apikey={1}&q={dto.strDrink}";
             List<CocktailsDto> cocktailsList = new List<CocktailsDto>();
 
             using (WebClient client = new WebClient())
@@ -22,7 +20,8 @@ namespace Shop.ApplicationServices.Services
 
                 dto.strDrink = coctailsResult[0].strDrink;
             }
-
+            return cocktailsList;
+        }
     }
 }
 

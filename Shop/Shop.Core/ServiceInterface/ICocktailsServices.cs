@@ -4,6 +4,6 @@ namespace Shop.Core.ServiceInterface
 {
     public interface ICocktailsServices
     {
-        Task<List<CocktailsDto>> CocktailsResult();
+        Task<List<CocktailsDto>> CocktailsResult(CocktailsDto dto);
     }
 }
