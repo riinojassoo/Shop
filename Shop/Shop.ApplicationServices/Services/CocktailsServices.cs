@@ -1,47 +1,37 @@
-﻿using Shop.Core.Dto.Cocktails;
+﻿using Shop.Core.Dto.CocktailsDto;
 using Shop.Core.ServiceInterface;
 using System.Net;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Shop.ApplicationServices.Services
 {
 	public class CocktailsServices : ICocktailsServices
 	{
 
-		public async Task<List<CocktailsDto>> CocktailsResult(string CocktailName)
+		public async Task<List<CocktailsDto>> CocktailsResult(string cocktailName)
 		{
-			string url = $"https://www.thecocktaildb.com/api.php?s={CocktailName}";
+			string url = $"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={cocktailName}";
 			List<CocktailsDto> cocktailsList = new List<CocktailsDto>();
 
 			using (WebClient client = new WebClient())
 			{
 				string json = client.DownloadString(url);
 
-				var cocktailsResult = JsonSerializer.Deserialize<List<CocktailsDto>>(json);
+				var apiResult = JsonSerializer.Deserialize<CocktailsApiResult>(json);
 
-				if (cocktailsResult != null)
+				if (apiResult?.Drinks != null)
 				{
-					cocktailsList.AddRange(cocktailsResult);
+					cocktailsList.AddRange(apiResult.Drinks);
 				}
 
 				return cocktailsList;
 			}
 		}
-        // New method to get cocktail by ID
-        public async Task<CocktailsDto> GetCocktailById(string id)
-        {
-            string url = $"https://www.thecocktaildb.com/api.php?i={id}";
-            using (WebClient client = new WebClient())
-            {
-                string json = client.DownloadString(url);
-                var cocktailResult = JsonSerializer.Deserialize<List<CocktailsDto>>(json);
-
-                if (cocktailResult != null && cocktailResult.Count > 0)
-                {
-                    return cocktailResult[0]; // Return the first cocktail in the result
-                }
-                return null;
-            }
-        }
-    }
+		public class CocktailsApiResult
+		{
+			[JsonPropertyName("drinks")]
+			public List<CocktailsDto> Drinks { get; set; }
+		}
+	}
 }

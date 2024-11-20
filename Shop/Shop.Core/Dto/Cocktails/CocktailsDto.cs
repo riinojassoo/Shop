@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Shop.Core.Dto.Cocktails
+namespace Shop.Core.Dto.CocktailsDto
 {
     public class CocktailsDto
     {
@@ -11,7 +11,7 @@ namespace Shop.Core.Dto.Cocktails
         public string strDrink { get; set; }
 
         [JsonPropertyName("strDrinkAlternate")]
-        public object strDrinkAlternate { get; set; }
+        public string strDrinkAlternate { get; set; }
 
         [JsonPropertyName("strTags")]
         public string strTags { get; set; }
@@ -47,10 +47,10 @@ namespace Shop.Core.Dto.Cocktails
         public string strInstructionsIT { get; set; }
 
         [JsonPropertyName("strInstructionsZH-HANS")]
-        public object strInstructionsZHHANS { get; set; }
+        public string strInstructionsZHHANS { get; set; }
 
         [JsonPropertyName("strInstructionsZH-HANT")]
-        public object strInstructionsZHHANT { get; set; }
+        public string strInstructionsZHHANT { get; set; }
 
         [JsonPropertyName("strDrinkThumb")]
         public string strDrinkThumb { get; set; }
@@ -68,37 +68,37 @@ namespace Shop.Core.Dto.Cocktails
         public string strIngredient4 { get; set; }
 
         [JsonPropertyName("strIngredient5")]
-        public object strIngredient5 { get; set; }
+        public string strIngredient5 { get; set; }
 
         [JsonPropertyName("strIngredient6")]
-        public object strIngredient6 { get; set; }
+        public string strIngredient6 { get; set; }
 
         [JsonPropertyName("strIngredient7")]
-        public object strIngredient7 { get; set; }
+        public string strIngredient7 { get; set; }
 
         [JsonPropertyName("strIngredient8")]
-        public object strIngredient8 { get; set; }
+        public string strIngredient8 { get; set; }
 
         [JsonPropertyName("strIngredient9")]
-        public object strIngredient9 { get; set; }
+        public string strIngredient9 { get; set; }
 
         [JsonPropertyName("strIngredient10")]
-        public object strIngredient10 { get; set; }
+        public string strIngredient10 { get; set; }
 
         [JsonPropertyName("strIngredient11")]
-        public object strIngredient11 { get; set; }
+        public string strIngredient11 { get; set; }
 
         [JsonPropertyName("strIngredient12")]
-        public object strIngredient12 { get; set; }
+        public string strIngredient12 { get; set; }
 
         [JsonPropertyName("strIngredient13")]
-        public object strIngredient13 { get; set; }
+        public string strIngredient13 { get; set; }
 
         [JsonPropertyName("strIngredient14")]
-        public object strIngredient14 { get; set; }
+        public string strIngredient14 { get; set; }
 
         [JsonPropertyName("strIngredient15")]
-        public object strIngredient15 { get; set; }
+        public string strIngredient15 { get; set; }
 
         [JsonPropertyName("strMeasure1")]
         public string strMeasure1 { get; set; }
@@ -110,40 +110,40 @@ namespace Shop.Core.Dto.Cocktails
         public string strMeasure3 { get; set; }
 
         [JsonPropertyName("strMeasure4")]
-        public object strMeasure4 { get; set; }
+        public string strMeasure4 { get; set; }
 
         [JsonPropertyName("strMeasure5")]
-        public object strMeasure5 { get; set; }
+        public string strMeasure5 { get; set; }
 
         [JsonPropertyName("strMeasure6")]
-        public object strMeasure6 { get; set; }
+        public string strMeasure6 { get; set; }
 
         [JsonPropertyName("strMeasure7")]
-        public object strMeasure7 { get; set; }
+        public string strMeasure7 { get; set; }
 
         [JsonPropertyName("strMeasure8")]
-        public object strMeasure8 { get; set; }
+        public string strMeasure8 { get; set; }
 
         [JsonPropertyName("strMeasure9")]
-        public object strMeasure9 { get; set; }
+        public string strMeasure9 { get; set; }
 
         [JsonPropertyName("strMeasure10")]
-        public object strMeasure10 { get; set; }
+        public string strMeasure10 { get; set; }
 
         [JsonPropertyName("strMeasure11")]
-        public object strMeasure11 { get; set; }
+        public string strMeasure11 { get; set; }
 
         [JsonPropertyName("strMeasure12")]
-        public object strMeasure12 { get; set; }
+        public string strMeasure12 { get; set; }
 
         [JsonPropertyName("strMeasure13")]
-        public object strMeasure13 { get; set; }
+        public string strMeasure13 { get; set; }
 
         [JsonPropertyName("strMeasure14")]
-        public object strMeasure14 { get; set; }
+        public string strMeasure14 { get; set; }
 
         [JsonPropertyName("strMeasure15")]
-        public object strMeasure15 { get; set; }
+        public string strMeasure15 { get; set; }
 
         [JsonPropertyName("strImageSource")]
         public string strImageSource { get; set; }

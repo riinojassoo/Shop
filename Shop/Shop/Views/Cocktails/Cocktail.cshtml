@@ -1,113 +1,98 @@
-﻿@* @model Shop.Models.Cocktails.CocktailsSearchViewModel
+﻿@model List<Shop.Models.Cocktails.CocktailsIndexViewModel>
 
 <div class="container">
-	<h2>Cocktails</h2>
-	<h2>@Html.DisplayFor(model => model.strDrink)</h2>
-	<hr/>
-	<dl class="row text-dark">
-		@if (Model.idDrink != null && String.IsNullOrEmpty(Model.idDrink))
-		{
-			<div class="form-group row">
-				<label asp-for="idDrink" class="col-sm-2 col-form-label"></label>
-				@Html.DisplayFor(modle => Model.idDrink)
-			</div>
-		}
-		else
-		{
-			@Html.HiddenFor(model => model.idDrink)
-		}
-	</dl>
-</div>
+    <h2 class="text-center">Search Results</h2>
 
-
-
-
-*@
-
-
-@* teine
-@model IEnumerable<Shop.Models.Cocktails.CocktailsSearchViewModel>
-
-<div class="container">
-    <h2>Cocktail Search Results</h2>
-
-    @if (Model != null && Model.Any())
+    @if (!Model.Any())
     {
-        <div class="cocktail-results">
-            @foreach (var cocktail in Model)
-            {
-                <div class="cocktail-item">
-                    <h3>@cocktail.strDrink</h3>
-
-                    @if (!string.IsNullOrEmpty(cocktail.strCategory))
-                    {
-                        <p><strong>Category:</strong> @cocktail.strCategory</p>
-                    }
-
-                    @if (!string.IsNullOrEmpty(cocktail.strGlass))
-                    {
-                        <p><strong>Glass:</strong> @cocktail.strGlass</p>
-                    }
-
-                    @if (!string.IsNullOrEmpty(cocktail.strInstructions))
-                    {
-                        <p><strong>Instructions:</strong> @cocktail.strInstructions</p>
-                    }
-
-                    @if (!string.IsNullOrEmpty(cocktail.strDrinkThumb))
-                    {
-                        <img src="@cocktail.strDrinkThumb" alt="@cocktail.strDrink" />
-                    }
-
-                    @if (cocktail.Ingredients.Any())
-                    {
-                        <p><strong>Ingredients:</strong></p>
-                        <ul>
-                            @foreach (var ingredient in cocktail.Ingredients)
-                            {
-                                <li>@ingredient</li>
-                            }
-                        </ul>
-                    }
-
-                    @if (cocktail.Measures.Any())
-                    {
-                        <p><strong>Measures:</strong></p>
-                        <ul>
-                            @foreach (var measure in cocktail.Measures)
-                            {
-                                <li>@measure</li>
-                            }
-                        </ul>
-                    }
-                </div>
-            }
-        </div>
+        <p class="text-center text-danger">No cocktails found. Please try another search.</p>
     }
     else
     {
-        <p>No cocktails found that match the search criteria.</p>
-    }
-</div>
- *@
-
-
- @model Shop.Models.Cocktails.CocktailsSearchViewModel
-
-<div class="container">
-    <h2>@Model.strDrink</h2>
-    <img src="@Model.strDrinkThumb" alt="@Model.strDrink" class="img-thumbnail" />
-    <p><strong>Category:</strong> @Model.strCategory</p>
-    <p><strong>IBA:</strong> @Model.strIBA</p>
-    <p><strong>Alcoholic:</strong> @Model.strAlcoholic</p>
-    <p><strong>Glass:</strong> @Model.strGlass</p>
-    <p><strong>Instructions:</strong> @Model.strInstructions</p>
-
-    <h3>Ingredients:</h3>
-    <ul>
-        @foreach (var ingredient in Model.Ingredients)
+        foreach (var cocktail in Model)
         {
-            <li>@ingredient</li>
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="@cocktail.strDrinkThumb" class="img-fluid rounded-start" alt="@cocktail.strDrink" />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@cocktail.strDrink</h5>
+                            <p class="card-text"><strong>Category:</strong> @cocktail.strCategory</p>
+                            <p class="card-text"><strong>Alcoholic:</strong> @cocktail.strAlcoholic</p>
+                            <p class="card-text"><strong>Glass:</strong> @cocktail.strGlass</p>
+                            <p class="card-text"><strong>Instructions:</strong> @cocktail.strInstructions</p>
+
+                            <h6>Ingredients:</h6>
+                            <ul>
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient1))
+                                {
+                                    <li>@cocktail.strIngredient1 - @cocktail.strMeasure1</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient2))
+                                {
+                                    <li>@cocktail.strIngredient2 - @cocktail.strMeasure2</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient3))
+                                {
+                                    <li>@cocktail.strIngredient3 - @cocktail.strMeasure3</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient4))
+                                {
+                                    <li>@cocktail.strIngredient4 - @cocktail.strMeasure4</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient5))
+                                {
+                                    <li>@cocktail.strIngredient5 - @cocktail.strMeasure5</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient6))
+                                {
+                                    <li>@cocktail.strIngredient6 - @cocktail.strMeasure6</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient7))
+                                {
+                                    <li>@cocktail.strIngredient7 - @cocktail.strMeasure7</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient8))
+                                {
+                                    <li>@cocktail.strIngredient8 - @cocktail.strMeasure8</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient9))
+                                {
+                                    <li>@cocktail.strIngredient9 - @cocktail.strMeasure9</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient10))
+                                {
+                                    <li>@cocktail.strIngredient10 - @cocktail.strMeasure10</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient11))
+                                {
+                                    <li>@cocktail.strIngredient11 - @cocktail.strMeasure11</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient12))
+                                {
+                                    <li>@cocktail.strIngredient12 - @cocktail.strMeasure12</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient13))
+                                {
+                                    <li>@cocktail.strIngredient13 - @cocktail.strMeasure13</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient14))
+                                {
+                                    <li>@cocktail.strIngredient14 - @cocktail.strMeasure14</li>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(cocktail.strIngredient15))
+                                {
+                                    <li>@cocktail.strIngredient15 - @cocktail.strMeasure15</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
-    </ul>
+
+        <a asp-action="Index" asp-controller="cocktails" class="btn btn-outline-dark">Back</a>
+    }
 </div>
