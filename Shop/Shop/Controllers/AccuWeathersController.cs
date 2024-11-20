@@ -3,9 +3,8 @@ using Microsoft.Identity.Client;
 using Shop.ApplicationServices.Services;
 using Shop.Core.Dto.WeatherDtos.AccuWeatherDtos;
 using Shop.Core.ServiceInterface;
-using Shop.Data;
 using Shop.Models.AccuWeathers;
-using Shop.Models.Kindergartens;
+
 
 namespace Shop.Controllers
 {

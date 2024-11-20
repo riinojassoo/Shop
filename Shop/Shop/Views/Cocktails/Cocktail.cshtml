@@ -1,0 +1,113 @@
+﻿@* @model Shop.Models.Cocktails.CocktailsSearchViewModel
+
+<div class="container">
+	<h2>Cocktails</h2>
+	<h2>@Html.DisplayFor(model => model.strDrink)</h2>
+	<hr/>
+	<dl class="row text-dark">
+		@if (Model.idDrink != null && String.IsNullOrEmpty(Model.idDrink))
+		{
+			<div class="form-group row">
+				<label asp-for="idDrink" class="col-sm-2 col-form-label"></label>
+				@Html.DisplayFor(modle => Model.idDrink)
+			</div>
+		}
+		else
+		{
+			@Html.HiddenFor(model => model.idDrink)
+		}
+	</dl>
+</div>
+
+
+
+
+*@
+
+
+@* teine
+@model IEnumerable<Shop.Models.Cocktails.CocktailsSearchViewModel>
+
+<div class="container">
+    <h2>Cocktail Search Results</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="cocktail-results">
+            @foreach (var cocktail in Model)
+            {
+                <div class="cocktail-item">
+                    <h3>@cocktail.strDrink</h3>
+
+                    @if (!string.IsNullOrEmpty(cocktail.strCategory))
+                    {
+                        <p><strong>Category:</strong> @cocktail.strCategory</p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(cocktail.strGlass))
+                    {
+                        <p><strong>Glass:</strong> @cocktail.strGlass</p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(cocktail.strInstructions))
+                    {
+                        <p><strong>Instructions:</strong> @cocktail.strInstructions</p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(cocktail.strDrinkThumb))
+                    {
+                        <img src="@cocktail.strDrinkThumb" alt="@cocktail.strDrink" />
+                    }
+
+                    @if (cocktail.Ingredients.Any())
+                    {
+                        <p><strong>Ingredients:</strong></p>
+                        <ul>
+                            @foreach (var ingredient in cocktail.Ingredients)
+                            {
+                                <li>@ingredient</li>
+                            }
+                        </ul>
+                    }
+
+                    @if (cocktail.Measures.Any())
+                    {
+                        <p><strong>Measures:</strong></p>
+                        <ul>
+                            @foreach (var measure in cocktail.Measures)
+                            {
+                                <li>@measure</li>
+                            }
+                        </ul>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No cocktails found that match the search criteria.</p>
+    }
+</div>
+ *@
+
+
+ @model Shop.Models.Cocktails.CocktailsSearchViewModel
+
+<div class="container">
+    <h2>@Model.strDrink</h2>
+    <img src="@Model.strDrinkThumb" alt="@Model.strDrink" class="img-thumbnail" />
+    <p><strong>Category:</strong> @Model.strCategory</p>
+    <p><strong>IBA:</strong> @Model.strIBA</p>
+    <p><strong>Alcoholic:</strong> @Model.strAlcoholic</p>
+    <p><strong>Glass:</strong> @Model.strGlass</p>
+    <p><strong>Instructions:</strong> @Model.strInstructions</p>
+
+    <h3>Ingredients:</h3>
+    <ul>
+        @foreach (var ingredient in Model.Ingredients)
+        {
+            <li>@ingredient</li>
+        }
+    </ul>
+</div>

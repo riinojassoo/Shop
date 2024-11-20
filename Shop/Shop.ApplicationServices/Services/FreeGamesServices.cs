@@ -1,7 +1,5 @@
-﻿using Nancy.Json;
-using Shop.Core.Dto.FreeGamesDtos;
+﻿using Shop.Core.Dto.FreeGamesDtos;
 using Shop.Core.ServiceInterface;
-
 using System.Net;
 using System.Text.Json;
 
