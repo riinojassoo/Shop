@@ -1,4 +1,4 @@
-﻿namespace Shop.Models.OpenWeather
+﻿namespace Shop.Models.OpenWeathers
 {
     public class OpenWeathersIndexViewModel
     {
