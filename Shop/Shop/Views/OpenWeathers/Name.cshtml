@@ -6,12 +6,12 @@
 	<hr />
 	<dl class="row text-dark">
 		<div class="form-group row">
-			<label asp-for="Temp" class="col-sm-2 col-form-label"></label>
+			<label asp-for="Temp" class="col-sm-2 col-form-label">Temperature</label>
 			@Html.DisplayFor(model => model.Temp) °C
 		</div>
 
 		<div class="form-group row">
-			<label asp-for="Feels_like" class="col-sm-2 col-form-label"></label>
+			<label asp-for="Feels_like" class="col-sm-2 col-form-label">Feels like</label>
 			@Html.DisplayFor(model => model.Feels_like) °C
 		</div>
 
@@ -26,8 +26,15 @@
 		</div>
 
 		<div class="form-group row">
-			<label asp-for="Speed" class="col-sm-2 col-form-label"></label>
+			<label asp-for="Speed" class="col-sm-2 col-form-label">Wind Speed</label>
 			@Html.DisplayFor(model => model.Speed) m/s
 		</div>
+		<div class="form-group row">
+			<label asp-for="Description" class="col-sm-2 col-form-label">Weather Condition</label>
+			@Html.DisplayFor(model => model.Description)
+		</div>
 	</dl>
+</div>
+<div>
+	<a asp-action="Index" asp-controller="openWeathers" class="btn btn-outline-dark">Back</a>
 </div>

@@ -47,6 +47,7 @@ namespace Shop.Controllers
             vm.Humidity = dto.Main.Humidity;
             vm.Pressure = dto.Main.Pressure;
             vm.Speed = dto.Wind.Speed;
+            vm.Description = dto.Weather?.FirstOrDefault()?.Description;
 
             return View("Name", vm);
         }
