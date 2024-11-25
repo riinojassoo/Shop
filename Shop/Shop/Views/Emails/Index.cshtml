@@ -1,7 +1,7 @@
 ﻿@model Shop.Models.Emails.EmailViewModel
 
 <div>
-	<from method="post" enctype="multipart/form-date">
+	<form method="post" enctype="multipart/form-date">
 		<div class="form-group row">
 			<label asp-for="To" class="col-sm-2 col-form-label"></label>
 			<div class="col-sm-5">
@@ -23,5 +23,5 @@
 			</div>
 		</div>
 		<input asp-action="sendEmail" asp-controller="emails" type="submit" class="btn btn-outline-dark" value="Send Email" />
-	</from>
+	</form>
 </div>
