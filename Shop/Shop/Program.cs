@@ -27,6 +27,7 @@ namespace Shop
 			builder.Services.AddScoped<IFreeGamesServices, FreeGamesServices>();
 			builder.Services.AddScoped<ICocktailsServices, CocktailsServices>();
 			builder.Services.AddScoped<IOpenWeatherServices, OpenWeatherServices>();
+			builder.Services.AddScoped<IEmailServices, EmailServices>();
 
 			builder.Services.AddDbContext<ShopContext>(options =>
 				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
