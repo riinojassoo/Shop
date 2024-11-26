@@ -1,7 +1,7 @@
 ﻿@model Shop.Models.Emails.EmailViewModel
 
 <div>
-	<form method="post" enctype="multipart/form-date">
+	<form method="post" enctype="multipart/form-data">
 		<div class="form-group row">
 			<label asp-for="To" class="col-sm-2 col-form-label"></label>
 			<div class="col-sm-5">
@@ -20,6 +20,13 @@
 			<label asp-for="Body" class="col-sm-2 col-form-label"></label>
 			<div class="col-sm-5">
 				<textarea rows="5" asp-for="Body" class="form-control"></textarea>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="Attachments" class="col-sm-2 col-form-label">Attachments</label>
+			<div class="col-sm-5">
+				<input type="file" name="Attachments" class="form-control" multiple />
 			</div>
 		</div>
 		<input asp-action="sendEmail" asp-controller="emails" type="submit" class="btn btn-outline-dark" value="Send Email" />

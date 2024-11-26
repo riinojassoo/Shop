@@ -26,7 +26,8 @@ namespace Shop.Controllers
 				To = vm.To,
 				Subject = vm.Subject,
 				Body = vm.Body,
-			};
+                Attachments = vm.Attachments
+            };
 
 			_emailServices.SendEmail(dto);
 			return RedirectToAction(nameof(Index));

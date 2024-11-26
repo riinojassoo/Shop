@@ -25,13 +25,34 @@ namespace Shop.ApplicationServices.Services
 			email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUserName").Value));
 			email.To.Add(MailboxAddress.Parse(dto.To));
 			email.Subject = dto.Subject;
-			email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-			{
-				Text = dto.Body
-			};
+            //email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            //{
+            //	Text = dto.Body
+            //};
 
-			//kindlasti kasutada mailkit.net.smtp
-			using var smtp = new SmtpClient();
+            var builder = new BodyBuilder
+            {
+                HtmlBody = dto.Body
+            };
+
+            // Add attachments if they exist
+            if (dto.Attachments != null && dto.Attachments.Any())
+            {
+                foreach (var attachment in dto.Attachments)
+                {
+                    if (attachment.Length > 0)
+                    {
+                        using var memoryStream = new MemoryStream();
+						attachment.CopyTo(memoryStream);
+                        builder.Attachments.Add(attachment.FileName, memoryStream.ToArray());
+                    }
+                }
+            }
+
+            email.Body = builder.ToMessageBody();
+
+            //kindlasti kasutada mailkit.net.smtp
+            using var smtp = new SmtpClient();
 
 			//siin tuleb valida õige port ja kasutada securesocket optionit
 			//autentida
