@@ -155,7 +155,7 @@ namespace Shop.Controllers
 		}
 
 
-		[HttpPost]
+		[HttpPut]
 		public async Task<IActionResult> Update(RealEstateCreateUpdateViewModel vm)
 		{
 			var dto = new RealEstateDto()
@@ -218,7 +218,7 @@ namespace Shop.Controllers
 
             return View(vm);
         }
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> DeleteConfirmation(Guid id)
         {
             var realEstates = await _realEstateServices.Delete(id);
@@ -229,7 +229,7 @@ namespace Shop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-		[HttpPost]
+		[HttpDelete]
 		public async Task<IActionResult> RemoveImage(RealEstateImageViewModel vm)
 		{
 			var dto = new FileToDatabaseDto()
