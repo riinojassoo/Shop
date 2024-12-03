@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Shop.ApplicationServices.Services;
+using Shop.Core.Domain;
 using Shop.Core.ServiceInterface;
 using Shop.Data;
 
@@ -28,8 +30,22 @@ namespace Shop
 			builder.Services.AddScoped<ICocktailsServices, CocktailsServices>();
 			builder.Services.AddScoped<IOpenWeatherServices, OpenWeatherServices>();
 			builder.Services.AddScoped<IEmailServices, EmailServices>();
+			builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+			{
+				options.SignIn.RequireConfirmedAccount = true;
+				options.Password.RequiredLength = 3;
 
-			builder.Services.AddDbContext<ShopContext>(options =>
+				options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConformation";
+				options.Lockout.MaxFailedAccessAttempts = 3;
+				options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+			})
+			.AddEntityFrameworkStores<ShopContext>()
+			.AddDefaultTokenProviders()
+			.AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("CustomEmailConfirmation")
+			.AddDefaultUI();
+
+
+            builder.Services.AddDbContext<ShopContext>(options =>
 				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 

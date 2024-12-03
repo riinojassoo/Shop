@@ -58,6 +58,14 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="Emails" asp-action="Index">Email</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="navbar-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Accounts" asp-action="Register">Register</a>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -99,6 +107,9 @@
                     bannerImage = "~/images/breaking-waves.jpg";
                     break;
                 case "Emails":
+                    bannerImage = "~/images/breaking-waves.jpg";
+                    break;
+                case "Accounts":
                     bannerImage = "~/images/breaking-waves.jpg";
                     break;
                 default:
