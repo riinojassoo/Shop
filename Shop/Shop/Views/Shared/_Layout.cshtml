@@ -30,41 +30,56 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Spaceships" asp-action="Index">Spaceship</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Kindergartens" asp-action="Index">Kindergarten</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="RealEstates" asp-action="Index">RealEstate</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="AccuWeathers" asp-action="Index">AccuWeather</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="ChuckNorris" asp-action="Index">ChuckNorris</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="FreeGames" asp-action="Index">FreeGames</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Cocktails" asp-action="Index">Cocktails</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="OpenWeathers" asp-action="Index">OpenWeather</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Emails" asp-action="Index">Email</a>
-                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Spaceships" asp-action="Index">Spaceship</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Kindergartens" asp-action="Index">Kindergarten</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="RealEstates" asp-action="Index">RealEstate</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="AccuWeathers" asp-action="Index">AccuWeather</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="ChuckNorris" asp-action="Index">ChuckNorris</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="FreeGames" asp-action="Index">FreeGames</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Cocktails" asp-action="Index">Cocktails</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="OpenWeathers" asp-action="Index">OpenWeather</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Emails" asp-action="Index">Email</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav ml-auto">
-                        <li class="navbar-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Accounts" asp-action="Register">Register</a>
-                        </li>
-                        <li class="navbar-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <form asp-controller="Accounts" asp-action="Logout" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-dark">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="navbar-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Accounts" asp-action="Register">Register</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

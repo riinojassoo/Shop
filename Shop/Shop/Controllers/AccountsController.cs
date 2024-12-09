@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Manage.Internal;
 using Microsoft.AspNetCore.Mvc;
@@ -123,5 +125,14 @@ namespace Shop.Controllers
 
 			return View(model);
 		}
-	}
+
+		[HttpPost]
+		[Authorize]
+		[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+			await _signInManager.SignOutAsync();
+			return RedirectToAction("Index", "Home");
+        }
+    }
 }
