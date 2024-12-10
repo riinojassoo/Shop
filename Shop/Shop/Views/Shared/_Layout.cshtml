@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<Shop.Core.Domain.ApplicationUser> signInManager;
+@inject UserManager<Shop.Core.Domain.ApplicationUser> userManager;
+@{
+    var user = await userManager.GetUserAsync(User);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -67,7 +74,7 @@
                         {
                             <li class="nav-item">
                                 <form asp-controller="Accounts" asp-action="Logout" method="post" style="display:inline;">
-                                    <button type="submit" class="btn btn-dark">Logout @User.Identity.Name</button>
+                                    <button type="submit" class="btn btn-dark">Logout @user.Name</button>
                                 </form>
                             </li>
                         }
