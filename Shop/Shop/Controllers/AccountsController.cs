@@ -6,6 +6,13 @@ using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Manage.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Core.Domain;
 using Shop.Models.Accounts;
+using System.Net.Mail;
+using System.Net;
+using Shop.Core.ServiceInterface;
+using Shop.ApplicationServices.Services;
+using Shop.Core.Dto.Emails;
+using Shop.Models;
+using System.Diagnostics;
 
 namespace Shop.Controllers
 {
@@ -13,15 +20,21 @@ namespace Shop.Controllers
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly SignInManager<ApplicationUser> _signInManager;
+		private readonly IEmailServices _emailServices;
+
+
 
 		public AccountsController
 			(
 				UserManager<ApplicationUser> userManager,
-				SignInManager<ApplicationUser> signInManager
+				SignInManager<ApplicationUser> signInManager,
+				IEmailServices emailServices
+
 			)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
+			_emailServices = emailServices;
 		}
 
 
@@ -33,6 +46,7 @@ namespace Shop.Controllers
 
 		[HttpPost]
 		[AllowAnonymous]
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public async Task<IActionResult> Register(RegisterViewModel vm)
 		{
 			if (ModelState.IsValid)
@@ -58,11 +72,24 @@ namespace Shop.Controllers
 						return RedirectToAction("ListUser", "Administrations");
 					}
 
-					ViewBag.ErrorTitle = "Registration successful";
-					ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
-						"email, by clicking on the confirmation link we have emailed you";
+					EmailTokenDto newsignup = new();
+					newsignup.Token = token;
+					newsignup.Body = $"Thank you for registering: <a href=\"{confirmationLink}\" >click here</a>";
+					newsignup.Subject = "CRUD REgistration";
+					newsignup.To = user.Email;
 
-					return View("EmailError");
+					//ViewBag.ErrorTitle = "Registration successful";
+					//ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
+					//	"email, by clicking on the confirmation link we have emailed you";
+
+					//return View("EmailError");
+
+					_emailServices.SendEmailToken(newsignup, token);
+					List<string> errordatas = [];
+					ViewBag.ErrorDatas = errordatas;
+					ViewBag.ErrorTitle = "You have successfully registered";
+					ViewBag.ErrorMessage = "Before you can log in, please confirm email fom the link";
+					return View("ConfirmEmail");
 				}
 
 				foreach (var error in result.Errors)
@@ -129,6 +156,7 @@ namespace Shop.Controllers
 
 		[HttpGet]
 		[AllowAnonymous]
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public async Task<IActionResult> ConfirmEmail(string userId, string token)
 		{
 			if (userId == null || token == null)
@@ -145,14 +173,34 @@ namespace Shop.Controllers
 			}
 
 			var result = await _userManager.ConfirmEmailAsync(user, token);
+			List<string> errordatas =
+				[
+				"Area", "Accounts",
+				"Issue", "Failure",
+				"StatusMessage", "Confirmation Failure",
+				"ActedOn", $"{user.Email}",
+				"CreatedAccountData", $"{user.Email}\n{user.City}\n[password hidden]\n[password hidden]"
+				];
+
 
 			if (result.Succeeded)
 			{
+				errordatas =
+					[
+					"Area", "Accounts",
+					"Issue", "Failure",
+					"StatusMessage", "Confirmation Failure",
+					"ActedOn", $"{user.Email}",
+					"CreatedAccountData", $"{user.Email}\n{user.City}\n[password hidden]\n[password hidden]"
+					];
+				ViewBag.ErrorDatas = errordatas;
 				return View();
 			}
 
+			ViewBag.ErrorDatas = errordatas;
 			ViewBag.ErrorTitle = "Email cannot be confirmed";
-			return View("Error");
+			ViewBag.ErrorMessage = $"The users email, with userid of {userId}, cannot be confirmed";
+			return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
 		}
 
 
@@ -192,6 +240,63 @@ namespace Shop.Controllers
             }
 			return View(model);
         }
+
+		//[HttpGet]
+		//[AllowAnonymous]
+		//public IActionResult SendEmailVerification()
+		//{
+		//	return View();
+		//}
+
+		//[HttpPost]
+		//[AllowAnonymous]
+		//public async Task<IActionResult> SendEmailVerification(SendEmailVerificationModel model)
+		//{
+		//	if (!ModelState.IsValid)
+		//	{
+		//		return View(model);
+		//	}
+
+		//	var user = await _userManager.FindByEmailAsync(model.Email);
+		//	if (user != null && await _userManager.IsEmailConfirmedAsync(user))
+		//	{
+		//		ModelState.AddModelError(string.Empty, "Email is already confirmed.");
+		//		return View(model);
+		//	}
+
+		//	// Generate email confirmation token
+		//	var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+		//	// Generate confirmation link
+		//	var emailVerificationLink = Url.Action("ConfirmEmail", "Accounts", new { userId = user.Id, token = token }, Request.Scheme);
+
+		//	// Create the EmailDto with the necessary details
+		//	var emailDto = new EmailDto
+		//	{
+		//		To = user.Email,
+		//		Subject = "Email Verification",
+		//		Body = $"Click the link to verify your email: <a href='{emailVerificationLink}'>Verify Email</a>",
+		//	};
+
+		//	// Log the email details
+		//	_logger.LogInformation("Sending email to {To} with subject {Subject} and body {Body}",
+		//		emailDto.To, emailDto.Subject, emailDto.Body);
+
+		//	try
+		//	{
+		//		// Send the email using the service
+		//		_emailServices.SendEmail(emailDto);
+
+		//		ViewBag.Message = "A verification link has been sent to your email address.";
+		//		return View("SendVerificationEmailConfirmation");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		ModelState.AddModelError(string.Empty, $"Error sending email: {ex.Message}");
+		//		return View(model);
+		//	}
+		//}
+
 
 		[HttpGet]
 		public IActionResult ChangePassword()
