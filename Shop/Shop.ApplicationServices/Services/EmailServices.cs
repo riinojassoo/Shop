@@ -73,9 +73,9 @@ namespace Shop.ApplicationServices.Services
 			dto.Token = token;
 			var email = new MimeMessage();
 
-			_config.GetSection("EmailUserName").Value = "riinojassoo@gmail.com";
-			_config.GetSection("EmailHost").Value = "smpt.gmail.com";
-			_config.GetSection("EmailPassword").Value = "axmf xvxp kudr suvc";
+			_config.GetSection("EmailUsername").Value = "riinojassoo@gmail.com";
+			_config.GetSection("EmailHost").Value = "smtp.gmail.com";
+			_config.GetSection("EmailPassword").Value = "aygq wnvw fbpp qoir";
 
 			email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUserName").Value));
 			email.To.Add(MailboxAddress.Parse(dto.To));
@@ -87,7 +87,6 @@ namespace Shop.ApplicationServices.Services
 
 			email.Body = builder.ToMessageBody();
 			using var smtp = new SmtpClient();
-
 			smtp.Connect(_config.GetSection("EmailHost").Value, 587, MailKit.Security.SecureSocketOptions.StartTls);
 
 			smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
