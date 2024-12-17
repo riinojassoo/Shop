@@ -232,7 +232,17 @@ namespace Shop.Controllers
 				if (user != null && await _userManager.IsEmailConfirmedAsync(user))
 				{
 					var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-					var passwordResetLink = Url.Action("ResetPassword", "Accounts", new { email = model.Email, token = token }, Request.Scheme);
+					var resetPasswordLink = Url.Action("ResetPassword", "Accounts", new { email = model.Email, token = token }, Request.Scheme);
+
+					EmailTokenDto resetPasswordDto = new()
+					{
+						Token = token,
+						Body = $"To reset your password, click <a href=\"{resetPasswordLink}\">here</a>.",
+						Subject = "Password Reset",
+						To = model.Email
+					};
+
+					_emailServices.SendEmailToken(resetPasswordDto, token);
 
 					return View("ForgotPasswordConfirmation");
 				}
@@ -242,8 +252,59 @@ namespace Shop.Controllers
 			return View(model);
         }
 
-
 		[HttpGet]
+		[AllowAnonymous]
+		public IActionResult ResetPassword(string email, string token)
+		{
+			if (email == null || token == null)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+
+			var model = new ResetPasswordViewModel { Email = email, Token = token };
+			return View(model);
+		}
+
+		// POST: /Accounts/ResetPassword
+		[HttpPost]
+		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = await _userManager.FindByEmailAsync(model.Email);
+				if (user == null)
+				{
+					return RedirectToAction("ResetPasswordConfirmation");
+				}
+
+				var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+				if (result.Succeeded)
+				{
+					return RedirectToAction("ResetPasswordConfirmation");
+				}
+
+				foreach (var error in result.Errors)
+				{
+					ModelState.AddModelError(string.Empty, error.Description);
+				}
+			}
+
+			return View(model);
+		}
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
+
+
+        [HttpGet]
 		public IActionResult ChangePassword()
 		{
 			return View();
