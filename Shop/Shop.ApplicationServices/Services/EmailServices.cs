@@ -75,7 +75,7 @@ namespace Shop.ApplicationServices.Services
 
 			_config.GetSection("EmailUsername").Value = "riinojassoo@gmail.com";
 			_config.GetSection("EmailHost").Value = "smtp.gmail.com";
-			_config.GetSection("EmailPassword").Value = "aygq wnvw fbpp qoir";
+			_config.GetSection("EmailPassword").Value = "adns fpsw oajj yqln";
 
 			email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUserName").Value));
 			email.To.Add(MailboxAddress.Parse(dto.To));
