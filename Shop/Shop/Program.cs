@@ -79,8 +79,10 @@ namespace Shop
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
 			app.MapHub<ChatHub>("/chatHub");
+			app.MapHub<UserHub>("/hubs/userCount");
+            app.MapHub<DeathlyHallowsHub>("/hubs/deathlyhallows");
 
-			app.Run();
+            app.Run();
 		}
 	}
 }
